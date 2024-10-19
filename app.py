@@ -1,11 +1,15 @@
 from flask import Flask, request, render_template, redirect, url_for, flash
 from markupsafe import Markup
+import os
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline debugging
 user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+
+# Define the base directory for uploads
+uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -45,6 +49,22 @@ def reset_password(username, new_password):
                 file.write(f"{username},{new_password}\n")
             else:
                 file.write(line)
+                
+                
+                
+# Function to create user directories and files
+def create_user_files(username):
+    user_dir = os.path.join(uploads_dir, username)
+    os.makedirs(user_dir, exist_ok=True)
+    
+    # Create collection.txt
+    with open(os.path.join(user_dir, 'collection.txt'), 'w') as f:
+        f.write('')
+    
+    # Create deck1.txt to deck20.txt
+    for i in range(1, 21):
+        with open(os.path.join(user_dir, f'deck{i}.txt'), 'w') as f:
+            f.write('')
 
 @app.route('/')
 def home():
@@ -72,6 +92,7 @@ def register():
             return redirect(url_for('register'))
         else:
             register_user(username, password)
+            create_user_files(username)  # Create user files upon registration
             flash(Markup("<span style='color: green;'>Registration successful</span>"))
             return redirect(url_for('home'))
     return render_template('register.html')
