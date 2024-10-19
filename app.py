@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, flash, Markup
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
@@ -17,11 +17,6 @@ def check_credentials(username, password):
                     return True
     return False
 
-# Function to register a new user
-def register_user(username, password):
-    with open(user_credentials_file, 'a') as file:
-        file.write(f"{username},{password}\n")
-        
 # Function to check if a username exists
 def username_exists(username):
     with open(user_credentials_file, 'r') as file:
@@ -31,6 +26,10 @@ def username_exists(username):
                 return True
     return False
 
+# Function to register a new user
+def register_user(username, password):
+    with open(user_credentials_file, 'a') as file:
+        file.write(f"{username},{password}\n")
 
 @app.route('/')
 def home():
@@ -45,7 +44,7 @@ def login():
         current_user = username
         return f"Welcome, {username}!"
     else:
-        flash("Incorrect Username or Password", "error")
+        flash(Markup("<span style='color: red;'>Incorrect Username or Password</span>"))
         return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -54,28 +53,13 @@ def register():
         username = request.form['username']
         password = request.form['password']
         if username_exists(username):
-            flash("Username already in use", "error")
+            flash(Markup("<span style='color: red;'>Username already in use</span>"))
             return redirect(url_for('register'))
         else:
-            flash("Registration successful", "success")
             register_user(username, password)
+            flash(Markup("<span style='color: green;'>Registration successful</span>"))
             return redirect(url_for('home'))
     return render_template('register.html')
-
-
-# Function to reset password
-def reset_password(username, new_password):
-    lines = []
-    with open(user_credentials_file, 'r') as file:
-        lines = file.readlines()
-    
-    with open(user_credentials_file, 'w') as file:
-        for line in lines:
-            stored_username, stored_password = line.strip().split(',')
-            if stored_username == username:
-                file.write(f"{username},{new_password}\n")
-            else:
-                file.write(line)
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -84,13 +68,12 @@ def forgot_password():
         new_password = request.form['new_password']
         if username_exists(username):
             reset_password(username, new_password)
-            flash("Password reset successfully", "success")
+            flash(Markup("<span style='color: green;'>Password reset successfully</span>"))
             return redirect(url_for('home'))
         else:
-            flash("Username not found", "error")
+            flash(Markup("<span style='color: red;'>Username not found</span>"))
             return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
