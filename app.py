@@ -62,5 +62,34 @@ def register():
     return render_template('register.html')
 
 
+# Function to reset password
+def reset_password(username, new_password):
+    lines = []
+    with open(user_credentials_file, 'r') as file:
+        lines = file.readlines()
+    
+    with open(user_credentials_file, 'w') as file:
+        for line in lines:
+            stored_username, stored_password = line.strip().split(',')
+            if stored_username == username:
+                file.write(f"{username},{new_password}\n")
+            else:
+                file.write(line)
+
+@app.route('/forgot_password', methods=['GET', 'POST'])
+def forgot_password():
+    if request.method == 'POST':
+        username = request.form['username']
+        new_password = request.form['new_password']
+        if username_exists(username):
+            reset_password(username, new_password)
+            flash("Password reset successfully")
+            return redirect(url_for('home'))
+        else:
+            flash("Username not found")
+            return redirect(url_for('forgot_password'))
+    return render_template('forgot_password.html')
+
+
 if __name__ == '__main__':
     app.run(debug=True)
