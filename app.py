@@ -45,7 +45,7 @@ def login():
         current_user = username
         return f"Welcome, {username}!"
     else:
-        flash("Incorrect Username or Password")
+        flash("Incorrect Username or Password", "error")
         return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -54,9 +54,10 @@ def register():
         username = request.form['username']
         password = request.form['password']
         if username_exists(username):
-            flash("Username already in use")
+            flash("Username already in use", "error")
             return redirect(url_for('register'))
         else:
+            flash("Registration successful", "success")
             register_user(username, password)
             return redirect(url_for('home'))
     return render_template('register.html')
@@ -83,10 +84,10 @@ def forgot_password():
         new_password = request.form['new_password']
         if username_exists(username):
             reset_password(username, new_password)
-            flash("Password reset successfully")
+            flash("Password reset successfully", "success")
             return redirect(url_for('home'))
         else:
-            flash("Username not found")
+            flash("Username not found", "error")
             return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
 
