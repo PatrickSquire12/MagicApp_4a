@@ -37,30 +37,15 @@ def login():
     else:
         flash("Incorrect Username or Password")
         return redirect(url_for('home'))
-        
-# Function to check if a username exists
-def username_exists(username):
-    with open(user_credentials_file, 'r') as file:
-        for line in file:
-            stored_username, _ = line.strip().split(',')
-            if stored_username == username:
-                return True
-    return False
-
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-        if username_exists(username):
-            flash("Username already in use", "error")
-            return redirect(url_for('register'))
-        else:
-            register_user(username, password)
-            return redirect(url_for('home'))
+        register_user(username, password)
+        return redirect(url_for('home'))
     return render_template('register.html')
-
 
 if __name__ == '__main__':
     app.run(debug=True)
