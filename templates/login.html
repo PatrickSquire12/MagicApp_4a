@@ -3,17 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <style>
-        .flash-message {
-            color: red;
-            list-style-type: none;
-        }
-    </style>
 </head>
 <body>
     {% with messages = get_flashed_messages(category_filter=["error"]) %}
         {% if messages %}
-            <ul class="flash-message">
+            <ul>
                 {% for message in messages %}
                     <li>{{ message }}</li>
                 {% endfor %}
