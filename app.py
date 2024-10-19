@@ -2,9 +2,12 @@ from flask import Flask, request, render_template, redirect, url_for
 
 app = Flask(__name__)
 
+#change below file for offline debugging
+user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+
 # Function to check credentials
 def check_credentials(username, password):
-    with open('user_data/user_credentials.txt', 'r') as file:
+    with open(user_credentials_file, 'r') as file:
         for line in file:
             stored_username, stored_password = line.strip().split(',')
             if stored_username == username and stored_password == password:
