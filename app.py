@@ -32,6 +32,20 @@ def register_user(username, password):
     with open(user_credentials_file, 'a') as file:
         file.write(f"{username},{password}\n")
 
+# Function to reset password
+def reset_password(username, new_password):
+    lines = []
+    with open(user_credentials_file, 'r') as file:
+        lines = file.readlines()
+    
+    with open(user_credentials_file, 'w') as file:
+        for line in lines:
+            stored_username, stored_password = line.strip().split(',')
+            if stored_username == username:
+                file.write(f"{username},{new_password}\n")
+            else:
+                file.write(line)
+
 @app.route('/')
 def home():
     return render_template('login.html')
