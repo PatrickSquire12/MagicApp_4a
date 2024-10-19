@@ -4,9 +4,6 @@
     <meta charset="UTF-8">
     <title>Login</title>
 	<style>
-		.flash-message {
-			list-style-type: none;
-		}
 		.flash-message.error {
 			color: red;
 		}
@@ -14,6 +11,7 @@
 			color: green;
 		}
 	</style>
+
 
 </head>
 <body>
@@ -26,6 +24,7 @@
         </ul>
     {% endif %}
 {% endwith %}
+
 
     <form action="/login" method="post">
         <label for="username">Username:</label>
