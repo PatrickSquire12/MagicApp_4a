@@ -1,6 +1,7 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline debugging
 user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
@@ -34,7 +35,8 @@ def login():
         current_user = username
         return f"Welcome, {username}!"
     else:
-        return "Invalid credentials. Please try again."
+        flash("Incorrect Username or Password")
+        return redirect(url_for('home'))
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
