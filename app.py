@@ -9,9 +9,11 @@ user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.tx
 def check_credentials(username, password):
     with open(user_credentials_file, 'r') as file:
         for line in file:
-            stored_username, stored_password = line.strip().split(',')
-            if stored_username == username and stored_password == password:
-                return True
+            parts = line.strip().split(',')
+            if len(parts) == 2:
+                stored_username, stored_password = parts
+                if stored_username == username and stored_password == password:
+                    return True
     return False
 
 # Function to register a new user
