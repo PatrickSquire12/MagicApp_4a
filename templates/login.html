@@ -3,25 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif; /* Apply the font */
+            background-color: rgb(145, 139, 238); /* Set the background color */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 50px; /* Adjust this value to move it lower */
+        }
+        .form-container label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-container input {
+            width: 100%;
+            margin-bottom: 15px;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #577cf5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .form-container button:hover {
+            background-color: #455cce;
+        }
+        .form-container p {
+            text-align: center;
+        }
+        .form-container a {
+            color: #455cce;
+            text-decoration: none;
+        }
+        .form-container a:hover {
+            text-decoration: underline;
+        }
+		.custom-input {
+			border: 2px solid rgb(145, 139, 238);
+		}
+		.custom-button {
+			background-color: rgb(255, 87, 87) !important;
+			color: white;
+		}
+		.custom-hyperlink {
+			color:rgb(255, 87, 87) !important
+		}
+    </style>
+
+
 </head>
 <body>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <ul>
-                {% for category, message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    <form action="/login" method="post">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br>
-        <button type="submit">Login</button>
-    </form>
-    <p><a href="/forgot_password">Forgot Password</a></p>
-    <p><a href="/register">Register</a></p>
+    <div class="form-container">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul>
+                    {% for category, message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <form action="/login" method="post">
+            <label for="username" style="color:rgb(145, 139, 238)";>Username</label>
+            <input type="text" id="username" name="username" required class="custom-input">
+            <label for="password" style="color:rgb(145, 139, 238)">Password</label>
+            <input type="password" id="password" name="password" required class="custom-input">
+            <button type="submit" class="custom-button">Login</button>
+        </form>
+        <p><a href="/forgot_password" class="custom-hyperlink">Forgot Password</a></p>
+        <p><a href="/register" class="custom-hyperlink">Register</a></p>
+    </div>
 </body>
 </html>
