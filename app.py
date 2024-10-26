@@ -6,12 +6,12 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline debugging
-user_credentials_file = 'home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-#user_credentials_file = 'user_data/user_credentials.txt'
+#user_credentials_file = 'home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-uploads_dir = 'home/PDogg95/MagicApp_4a/uploads'
-#uploads_dir = 'uploads'
+#uploads_dir = 'home/PDogg95/MagicApp_4a/uploads'
+uploads_dir = 'uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -79,10 +79,11 @@ def login():
     if check_credentials(username, password):
         global current_user
         current_user = username
-        return f"Welcome, {username}!"
+        return redirect(url_for('index'))  # Redirect to the index page on successful login
     else:
         flash(Markup("<span style='color: red;'>Incorrect Username or Password</span>"))
         return redirect(url_for('home'))
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -112,6 +113,13 @@ def forgot_password():
             flash(Markup("<span style='color: red;'>Username not found</span>"))
             return redirect(url_for('forgot_password'))
     return render_template('forgot_password.html')
+    
+ 
+@app.route('/index')
+def index():
+    global current_user  # Use the global variable for the current user
+    return render_template('index.html', username=current_user)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
