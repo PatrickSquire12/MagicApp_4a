@@ -118,7 +118,10 @@ def forgot_password():
 @app.route('/index')
 def index():
     global current_user  # Use the global variable for the current user
+    if 'current_user' not in globals() or current_user is None:
+        return redirect(url_for('home'))
     return render_template('index.html', username=current_user)
+
     
     
 @app.route('/update_file', methods=['POST'])
