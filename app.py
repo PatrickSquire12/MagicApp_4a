@@ -6,11 +6,11 @@ app = Flask(__name__)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline debugging
-user_credentials_file = 'home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
 #user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-uploads_dir = 'home/PDogg95/MagicApp_4a/uploads'
+uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
 #uploads_dir = 'uploads'
 
 # Function to check credentials
