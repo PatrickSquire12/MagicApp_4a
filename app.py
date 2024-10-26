@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, redirect, url_for, flash
+from flask import Flask, request, render_template, redirect, url_for, flash, jsonify
 from markupsafe import Markup
 import os
 
@@ -119,6 +119,28 @@ def forgot_password():
 def index():
     global current_user  # Use the global variable for the current user
     return render_template('index.html', username=current_user)
+    
+    
+@app.route('/update_file', methods=['POST'])
+def update_file():
+    data = request.get_json()
+    print(f"Current user: {current_user}")  # Debugging line
+    print(f"Received request data: {data}")  # Debugging line
+    file_type = data['type']
+    index = data['index']
+    text = data['text']
+
+    user_dir = os.path.join(uploads_dir, current_user)
+    if file_type == 'Collection':
+        file_path = os.path.join(user_dir, 'collection.txt')
+    else:
+        file_path = os.path.join(user_dir, f'deck{index}.txt')
+
+    with open(file_path, 'w') as file:
+        file.write(text)
+    print(f"Updated {file_path} with provided text.")  # Debugging line
+
+    return jsonify({'message': f'{file_type} {index} updated successfully!'})
 
 
 if __name__ == '__main__':

@@ -5,7 +5,6 @@
     <title>Welcome</title>
     <script>
         function openPopup(fileType, index) {
-            let message = fileType === 'Collection' ? `Paste your text for ${fileType} here:` : `Paste your text for ${fileType} ${index} here:`;
             const popup = window.open("", "Popup", "width=600,height=400");
             popup.document.write(`
                 <html>
@@ -13,7 +12,7 @@
                         <title>Paste Text</title>
                     </head>
                     <body>
-                        <h3>${message}</h3>
+                        <h3>Paste your text for ${fileType} ${index}:</h3>
                         <textarea id="textContent" rows="20" cols="60"></textarea><br>
                         <button onclick="window.opener.submitText('${fileType}', ${index}, document.getElementById('textContent').value); window.close();">Submit</button>
                     </body>
