@@ -2,10 +2,14 @@ from flask import Flask, request, render_template, redirect, url_for, flash, jso
 from markupsafe import Markup
 import os
 
-app = Flask(__name__)
+#change below for offline vs server
+#STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static'
+STATIC_DIR = '/home/PDogg95/MagicApp_4a/static'
+
+app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-# Change below file for offline debugging
+# Change below file for offline vs server
 user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
 #user_credentials_file = 'user_data/user_credentials.txt'
 
