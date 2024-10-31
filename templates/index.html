@@ -47,17 +47,26 @@
         document.body.style.paddingTop = logoHeight + 'px';
     };
 </script>
+<script>
+    function logout() {
+        // Add your logout logic here
+        window.location.href = '/logout'; // Example: Redirect to a logout URL
+    }
+</script>
+
 
 <body>
-	<div class="logo">
-		<img id="logoImage" src="static/logo.svg" alt="Logo">Welcome, {{ username }}!</img>
+    <div class="logo">
+        <img id="logoImage" src="static/logo.svg" alt="Logo">Welcome, {{ username }}!</img>
     </div>
-	<div class="button-container">
-		<button onclick="openPopup('Collection', 1)">Collection</button>
-		{% for i in range(1, 22) %}
-			<button onclick="openPopup('Deck', {{ i }})">Deck {{ i }}</button>
-		{% endfor %}
-	</div>
-
+    <button class="logout-button" onclick="logout()">Logout</button>
+    <div class="button-container">
+        <button onclick="openPopup('Collection', 1)">Collection</button>
+        {% for i in range(1, 22) %}
+            <button onclick="openPopup('Deck', {{ i }})">Deck {{ i }}</button>
+        {% endfor %}
+    </div>
 </body>
+
+
 </html>

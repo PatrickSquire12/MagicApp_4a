@@ -83,6 +83,7 @@ body {
     top: 0;
     left: 0;
     padding: 10px; /* Adjust padding as needed */
+	color: white; 
 }
 
 .logo img {
@@ -106,9 +107,30 @@ body {
 
 
 .button-container button {
-    /* width: 60%; */
-    /* padding: 10px; */
+    width: 80px;
+    padding: 10px;
     box-sizing: border-box;
-	width: 80px;
+    background-color: white; /* Set background to white */
+    color: rgb(255, 87, 87); /* Set text color to orange */
+    border: 2px solid rgb(255, 87, 87); /* Add a border with the same orange color */
+    border-radius: 5px; /* Optional: Add border radius for rounded corners */
+    cursor: pointer;
 }
 
+.button-container button:hover {
+    background-color: rgb(255, 87, 87); /* Change background color on hover */
+    color: white; /* Change text color to white on hover */
+}
+
+
+.logout-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
