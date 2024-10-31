@@ -77,3 +77,15 @@ body {
 .custom-label1 {
     color: rgb(145, 139, 238);
 }
+
+.logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px; /* Adjust padding as needed */
+}
+
+.logo img {
+    width: 100px; /* Adjust size as needed */
+    height: auto;
+}
