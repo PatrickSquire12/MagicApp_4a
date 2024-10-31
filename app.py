@@ -3,20 +3,20 @@ from markupsafe import Markup
 import os
 
 #change below for offline vs server
-STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
+# STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
 #STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
-#STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
+STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline vs serv5530er
-# user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-user_credentials_file = 'user_data/user_credentials.txt'
+user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+# user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-# uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
-uploads_dir = 'uploads'
+uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
+# uploads_dir = 'uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
