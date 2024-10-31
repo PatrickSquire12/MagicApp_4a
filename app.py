@@ -68,8 +68,8 @@ def create_user_files(username):
     with open(os.path.join(user_dir, 'collection.txt'), 'w') as f:
         f.write('')
     
-    # Create deck1.txt to deck20.txt
-    for i in range(1, 21):
+    # Create deck1.txt to deck21.txt
+    for i in range(1, 22):
         with open(os.path.join(user_dir, f'deck{i}.txt'), 'w') as f:
             f.write('')
 

@@ -1,12 +1,16 @@
-Folder PATH listing for volume Windows 
-Volume serial number is 70F7-2491
+Folder PATH listing for volume OSDisk
+Volume serial number is 5CAE-C964
 C:.
 ¦   app.py
-¦   app.py.bak
 ¦   tree.txt
 ¦   
++---static
+¦       logo.svg
+¦       style.css
+¦       
 +---templates
 ¦       forgot_password.html
+¦       index.html
 ¦       login.html
 ¦       register.html
 ¦       

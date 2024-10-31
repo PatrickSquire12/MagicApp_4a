@@ -38,13 +38,26 @@
             });
         }
     </script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <link <link href="{{ url_for('static', filename='style.css')}}" rel="stylesheet" type="text/css">
 </head>
-<body>
-    <h1>Welcome, {{ username }}!</h1>
+<script>
+    window.onload = function() {
+        var logoHeight = document.getElementById('logoImage').offsetHeight;
+        document.body.style.paddingTop = logoHeight + 'px';
+    };
+</script>
 
-    <button onclick="openPopup('Collection', 1)">Paste Collection Here</button>
-    {% for i in range(1, 21) %}
-        <button onclick="openPopup('Deck', {{ i }})">Paste Deck {{ i }} Here</button>
-    {% endfor %}
+<body>
+	<div class="logo">
+		<img id="logoImage" src="static/logo.svg" alt="Logo">Welcome, {{ username }}!</img>
+    </div>
+	<div class="button-container">
+		<button onclick="openPopup('Collection', 1)">Collection</button>
+		{% for i in range(1, 22) %}
+			<button onclick="openPopup('Deck', {{ i }})">Deck {{ i }}</button>
+		{% endfor %}
+	</div>
+
 </body>
 </html>

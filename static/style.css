@@ -2,8 +2,8 @@ body {
     font-family: 'Roboto Condensed', sans-serif; /* Apply the font */
     background-color: rgb(145, 139, 238); /* Set the background color */
     display: flex;
-    justify-content: center;
-    align-items: center;
+    /* justify-content: center; */
+    /* align-items: center; */
     height: 100vh;
     margin: 0;
 }
@@ -89,3 +89,26 @@ body {
     width: 100px; /* Adjust size as needed */
     height: auto;
 }
+
+
+
+.button-container {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    gap: 5px;
+    /* margin-left: 120px; */
+    align-items: start; /* Align items to the start to prevent stretching */
+	height: 20px;
+	width: 200px; 
+	margin-top: 20px; /* Adjust this value as needed */
+    margin-left: 120px; /* Add enough space to clear the logo */
+}
+
+
+.button-container button {
+    /* width: 60%; */
+    /* padding: 10px; */
+    box-sizing: border-box;
+	width: 80px;
+}
+
