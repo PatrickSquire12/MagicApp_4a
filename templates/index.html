@@ -155,6 +155,7 @@
 </script>
 
 
+
 <body>
     <div class="logo">
         <img id="logoImage" src="static/logo.svg" alt="Logo">Welcome, {{ username }}!</img>
@@ -166,6 +167,27 @@
             <button onclick="openPopup('Deck', {{ i }})">Deck {{ i }}</button>
         {% endfor %}
     </div>
+       <div class="deck-table">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Deck Name</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for deck_name, percentage in deck_names_and_percentages %}
+                    <tr>
+                        <td>{{ deck_name }}</td>
+                        <td>{{ percentage }}%</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+	</div>
+		
+	
 </body>
 
 

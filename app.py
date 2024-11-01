@@ -3,20 +3,20 @@ from markupsafe import Markup
 import os
 
 #change below for offline vs server
-# STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
+STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
 #STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
-STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
+# STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline vs serv5530er
-user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-# user_credentials_file = 'user_data/user_credentials.txt'
+# user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
-# uploads_dir = 'uploads'
+# uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
+uploads_dir = 'uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -131,7 +131,12 @@ def index():
     global current_user  # Use the global variable for the current user
     if 'current_user' not in globals() or current_user is None:
         return redirect(url_for('home'))
-    return render_template('index.html', username=current_user)
+    
+    user_dir = os.path.join(uploads_dir, current_user)
+    deck_names_and_percentages = get_deck_names_and_percentages(user_dir)
+    
+    return render_template('index.html', username=current_user, deck_names_and_percentages=deck_names_and_percentages)
+
 
     
     
@@ -215,6 +220,44 @@ def logout():
     global current_user
     current_user = None
     return redirect(url_for('home'))
+    
+    
+def calculate_percentage(collection_file, deck_file):
+    with open(collection_file, 'r') as f:
+        collection_lines = set(f.read().splitlines())
+    
+    with open(deck_file, 'r') as f:
+        deck_lines = f.read().splitlines()
+    
+    matching_lines = sum(1 for line in deck_lines if line in collection_lines)
+    total_lines = len(deck_lines)
+    
+    if total_lines == 0:
+        return 0
+    return (matching_lines / total_lines) * 100
+
+def get_deck_names_and_percentages(user_dir):
+    collection_file = os.path.join(user_dir, 'collection.txt')
+    reference_file = os.path.join(user_dir, 'reference.txt')
+    
+    deck_names_and_percentages = []
+    
+    with open(reference_file, 'r') as f:
+        for line in f:
+            deck_name, deck_display_name = line.strip().split(',')
+            deck_index = int(deck_name.split()[1])
+            deck_file = os.path.join(user_dir, f'deck{deck_index}.txt')
+            percentage = calculate_percentage(collection_file, deck_file)
+            deck_names_and_percentages.append((deck_display_name, percentage))
+    
+    return deck_names_and_percentages
+
+@app.route('/get_deck_percentages', methods=['GET'])
+def get_deck_percentages():
+    user_dir = os.path.join(uploads_dir, current_user)
+    deck_names_and_percentages = get_deck_names_and_percentages(user_dir)
+    return jsonify(deck_names_and_percentages)
+
 
 
 
