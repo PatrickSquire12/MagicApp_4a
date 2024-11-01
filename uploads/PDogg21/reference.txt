@@ -1,5 +1,5 @@
 Deck 1,bears
-Deck 2,Deck 2
+Deck 2,eels
 Deck 3,Deck 3
 Deck 4,Deck 4
 Deck 5,Deck 5

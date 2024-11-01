@@ -173,6 +173,44 @@ def update_file():
     return jsonify({'message': f'{file_type} {index} updated successfully!'})
 
 
+@app.route('/get_deck_name', methods=['GET'])
+def get_deck_name():
+    index = request.args.get('index')
+    user_dir = os.path.join(uploads_dir, current_user)
+    reference_file_path = os.path.join(user_dir, 'reference.txt')
+    
+    deck_name = ''
+    with open(reference_file_path, 'r') as file:
+        for line in file:
+            if line.startswith(f'Deck {index},'):
+                deck_name = line.strip().split(',')[1]
+                break
+    
+    return jsonify({'deckName': deck_name})
+
+
+@app.route('/get_deck_data', methods=['GET'])
+def get_deck_data():
+    index = request.args.get('index')
+    user_dir = os.path.join(uploads_dir, current_user)
+    reference_file_path = os.path.join(user_dir, 'reference.txt')
+    deck_file_path = os.path.join(user_dir, f'deck{index}.txt')
+    
+    deck_name = ''
+    with open(reference_file_path, 'r') as file:
+        for line in file:
+            if line.startswith(f'Deck {index},'):
+                deck_name = line.strip().split(',')[1]
+                break
+    
+    deck_content = ''
+    if os.path.exists(deck_file_path):
+        with open(deck_file_path, 'r') as file:
+            deck_content = file.read()
+    
+    return jsonify({'deckName': deck_name, 'deckContent': deck_content})
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
