@@ -72,6 +72,12 @@ def create_user_files(username):
     for i in range(1, 22):
         with open(os.path.join(user_dir, f'deck{i}.txt'), 'w') as f:
             f.write('')
+    
+    # Create reference.txt
+    with open(os.path.join(user_dir, 'reference.txt'), 'w') as f:
+        for i in range(1, 22):
+            f.write(f'Deck {i},Deck {i}\n')
+
 
 @app.route('/')
 def home():
@@ -137,6 +143,7 @@ def update_file():
     file_type = data['type']
     index = data['index']
     text = data['text']
+    deck_name = data.get('deckName', None)
 
     user_dir = os.path.join(uploads_dir, current_user)
     if file_type == 'Collection':
@@ -148,7 +155,23 @@ def update_file():
         file.write(text)
     print(f"Updated {file_path} with provided text.")  # Debugging line
 
+    # Update reference.txt if deck_name is provided
+    if deck_name:
+        reference_file_path = os.path.join(user_dir, 'reference.txt')
+        lines = []
+        with open(reference_file_path, 'r') as file:
+            lines = file.readlines()
+        
+        with open(reference_file_path, 'w') as file:
+            for line in lines:
+                if line.startswith(f'Deck {index},'):
+                    file.write(f'Deck {index},{deck_name}\n')
+                else:
+                    file.write(line)
+        print(f"Updated reference.txt with Deck {index} name: {deck_name}")  # Debugging line
+
     return jsonify({'message': f'{file_type} {index} updated successfully!'})
+
 
 
 if __name__ == '__main__':

@@ -1,0 +1,21 @@
+Deck 1,bears
+Deck 2,Deck 2
+Deck 3,Deck 3
+Deck 4,Deck 4
+Deck 5,Deck 5
+Deck 6,Deck 6
+Deck 7,Deck 7
+Deck 8,Deck 8
+Deck 9,Deck 9
+Deck 10,Deck 10
+Deck 11,Deck 11
+Deck 12,Deck 12
+Deck 13,Deck 13
+Deck 14,Deck 14
+Deck 15,Deck 15
+Deck 16,Deck 16
+Deck 17,Deck 17
+Deck 18,Deck 18
+Deck 19,Deck 19
+Deck 20,Deck 20
+Deck 21,Deck 21
