@@ -159,7 +159,7 @@
     <div class="logo">
         <img id="logoImage" src="static/logo.svg" alt="Logo">Welcome, {{ username }}!</img>
     </div>
-    <button class="logout-button" onclick="logout()">Logout</button>
+    <button class="logout-button" onclick="window.location.href='/logout'">Logout</button>
     <div class="button-container">
         <button onclick="openPopup('Collection', 1)">Collection</button>
         {% for i in range(1, 22) %}
