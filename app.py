@@ -209,20 +209,6 @@ def get_deck_data():
             deck_content = file.read()
     
     return jsonify({'deckName': deck_name, 'deckContent': deck_content})
-    
-    
-@app.route('/get_collection_data', methods=['GET'])
-def get_collection_data():
-    user_dir = os.path.join(uploads_dir, current_user)
-    collection_file_path = os.path.join(user_dir, 'collection.txt')
-    
-    collection_content = ''
-    if os.path.exists(collection_file_path):
-        with open(collection_file_path, 'r') as file:
-            collection_content = file.read()
-    
-    return jsonify({'collectionContent': collection_content})
-
 
 @app.route('/logout')
 def logout():

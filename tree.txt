@@ -15,55 +15,7 @@ C:.
 ¦       register.html
 ¦       
 +---uploads
-¦   +---PDogg1
-¦   ¦       collection.txt
-¦   ¦       deck1.txt
-¦   ¦       deck10.txt
-¦   ¦       deck11.txt
-¦   ¦       deck12.txt
-¦   ¦       deck13.txt
-¦   ¦       deck14.txt
-¦   ¦       deck15.txt
-¦   ¦       deck16.txt
-¦   ¦       deck17.txt
-¦   ¦       deck18.txt
-¦   ¦       deck19.txt
-¦   ¦       deck2.txt
-¦   ¦       deck20.txt
-¦   ¦       deck21.txt
-¦   ¦       deck3.txt
-¦   ¦       deck4.txt
-¦   ¦       deck5.txt
-¦   ¦       deck6.txt
-¦   ¦       deck7.txt
-¦   ¦       deck8.txt
-¦   ¦       deck9.txt
-¦   ¦       
 ¦   +---PDogg20
-¦   ¦       collection.txt
-¦   ¦       deck1.txt
-¦   ¦       deck10.txt
-¦   ¦       deck11.txt
-¦   ¦       deck12.txt
-¦   ¦       deck13.txt
-¦   ¦       deck14.txt
-¦   ¦       deck15.txt
-¦   ¦       deck16.txt
-¦   ¦       deck17.txt
-¦   ¦       deck18.txt
-¦   ¦       deck19.txt
-¦   ¦       deck2.txt
-¦   ¦       deck20.txt
-¦   ¦       deck21.txt
-¦   ¦       deck3.txt
-¦   ¦       deck4.txt
-¦   ¦       deck5.txt
-¦   ¦       deck6.txt
-¦   ¦       deck7.txt
-¦   ¦       deck8.txt
-¦   ¦       deck9.txt
-¦   ¦       
-¦   +---PDogg21
 ¦           collection.txt
 ¦           deck1.txt
 ¦           deck10.txt
@@ -78,7 +30,6 @@ C:.
 ¦           deck19.txt
 ¦           deck2.txt
 ¦           deck20.txt
-¦           deck21.txt
 ¦           deck3.txt
 ¦           deck4.txt
 ¦           deck5.txt
@@ -86,7 +37,6 @@ C:.
 ¦           deck7.txt
 ¦           deck8.txt
 ¦           deck9.txt
-¦           reference.txt
 ¦           
 +---user_data
         user_credentials.txt
