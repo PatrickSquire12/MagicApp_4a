@@ -1,4 +1,4 @@
-Deck 1,bears
+Deck 1,lions
 Deck 2,eels
 Deck 3,Deck 3
 Deck 4,Deck 4
