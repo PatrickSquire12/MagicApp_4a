@@ -219,20 +219,19 @@ def get_deck_data():
     
 @app.route('/get_collection_data')
 def get_collection_data():
-    user_folder = os.path.join('uploads', current_user)
+    user_folder = os.path.join(uploads_dir, current_user)
     collection_file = os.path.join(user_folder, 'collection.txt')
     
-    try:
-        with open(collection_file, 'r') as f:
-            collection_content = f.read()
-    except FileNotFoundError:
-        collection_content = ''
+    collection_content = ''
+    if os.path.exists(collection_file):
+        with open(collection_file, 'r') as file:
+            collection_content = file.read()
     
     return {'collectionContent': collection_content}
 
     
 def calculate_percentages(user):
-    user_folder = os.path.join('uploads', user)
+    user_folder = os.path.join(uploads_dir, current_user)
     collection_file = os.path.join(user_folder, 'collection.txt')
     
     # Read the lines in collection.txt
