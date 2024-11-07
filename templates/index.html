@@ -33,6 +33,24 @@
             <button onclick="openPopup('Deck', {{ i }})">Deck {{ i }}</button>
         {% endfor %}
     </div>
+	<div class="table-container">
+			<table>
+			<thead>
+				<tr>
+					<th>Deck</th>
+					<th>Percentage</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for deck, percentage in percentages %}
+				<tr>
+					<td>{{ deck }}</td>
+					<td>{{ percentage }}</td>
+				</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 </body>
 
 

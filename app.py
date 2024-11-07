@@ -3,20 +3,20 @@ from markupsafe import Markup
 import os
 
 #change below for offline vs server
-# STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
+STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
 #STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
-STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
+# STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline vs serv5530er
-user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-# user_credentials_file = 'user_data/user_credentials.txt'
+# user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
-# uploads_dir = 'uploads'
+# uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
+uploads_dir = 'uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -77,6 +77,11 @@ def create_user_files(username):
     with open(os.path.join(user_dir, 'reference.txt'), 'w') as f:
         for i in range(1, 22):
             f.write(f'Deck {i},Deck {i}\n')
+    
+    # Create scores.txt with 21 lines each containing 0
+    with open(os.path.join(user_dir, 'scores.txt'), 'w') as f:
+        for _ in range(21):
+            f.write('0\n')
 
 
 @app.route('/')
@@ -131,7 +136,9 @@ def index():
     global current_user  # Use the global variable for the current user
     if 'current_user' not in globals() or current_user is None:
         return redirect(url_for('home'))
-    return render_template('index.html', username=current_user)
+    
+    percentages = calculate_percentages(current_user)
+    return render_template('index.html', username=current_user,percentages=percentages)
 
     
     
@@ -210,19 +217,58 @@ def get_deck_data():
     
     return jsonify({'deckName': deck_name, 'deckContent': deck_content})
     
-@app.route('/get_collection_data', methods=['GET'])
-def get_collecton_data():
-    index = request.args.get('index')
-    user_dir = os.path.join(uploads_dir, current_user)
-    reference_file_path = os.path.join(user_dir, 'reference.txt')
-    deck_file_path = os.path.join(user_dir, f'collection.txt')
+@app.route('/get_collection_data')
+def get_collection_data():
+    user_folder = os.path.join('uploads', current_user)
+    collection_file = os.path.join(user_folder, 'collection.txt')
     
-    deck_content = ''
-    if os.path.exists(deck_file_path):
-        with open(deck_file_path, 'r') as file:
-            deck_content = file.read()
+    try:
+        with open(collection_file, 'r') as f:
+            collection_content = f.read()
+    except FileNotFoundError:
+        collection_content = ''
     
-    return jsonify({'deckContent': deck_content})
+    return {'collectionContent': collection_content}
+
+    
+def calculate_percentages(user):
+    user_folder = os.path.join('uploads', user)
+    collection_file = os.path.join(user_folder, 'collection.txt')
+    
+    # Read the lines in collection.txt
+    try:
+        with open(collection_file, 'r') as f:
+            collection_lines = set(line.strip() for line in f.readlines())
+    except FileNotFoundError:
+        collection_lines = set()
+    
+    percentages = []
+    for i in range(1, 21):
+        deck_file = os.path.join(user_folder, f'deck{i}.txt')
+        try:
+            with open(deck_file, 'r') as f:
+                deck_lines = [line.strip() for line in f.readlines()]
+            matching_lines = sum(1 for line in deck_lines if line in collection_lines)
+            deck_count = len(deck_lines)
+        except FileNotFoundError:
+            matching_lines = 0
+            deck_count = 0
+        
+        if deck_count > 0:
+            percentage = (matching_lines / deck_count) * 100
+        else:
+            percentage = 0
+        
+        percentages.append((f'deck {i}', f'{percentage:.2f}%'))
+    
+    return percentages
+
+    
+@app.route('/get_percentages')
+def get_percentages():
+    percentages = calculate_percentages(current_user)
+    return {'percentages': percentages}
+
 
 @app.route('/logout')
 def logout():

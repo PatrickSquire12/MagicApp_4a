@@ -1,7 +1,7 @@
 body {
     font-family: 'Roboto Condensed', sans-serif; /* Apply the font */
     background-color: rgb(145, 139, 238); /* Set the background color */
-    display: flex;
+    /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
     height: 100vh;
@@ -133,4 +133,10 @@ body {
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+.table-container {
+    margin-top: 100px; /* Increase this value to move the table further down */
+    margin-left: 120px; /* Same left margin as button container */
+    width: 200px; /* Same width as button container */
 }

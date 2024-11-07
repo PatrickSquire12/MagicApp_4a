@@ -6,7 +6,10 @@ C:.
 ¦   
 +---static
 ¦       logo.svg
+¦       logout.js
+¦       openPopup.js
 ¦       style.css
+¦       submitText.js
 ¦       
 +---templates
 ¦       forgot_password.html
@@ -15,7 +18,7 @@ C:.
 ¦       register.html
 ¦       
 +---uploads
-¦   +---PDogg20
+¦   +---PDogg21
 ¦           collection.txt
 ¦           deck1.txt
 ¦           deck10.txt
@@ -30,6 +33,7 @@ C:.
 ¦           deck19.txt
 ¦           deck2.txt
 ¦           deck20.txt
+¦           deck21.txt
 ¦           deck3.txt
 ¦           deck4.txt
 ¦           deck5.txt
@@ -37,6 +41,8 @@ C:.
 ¦           deck7.txt
 ¦           deck8.txt
 ¦           deck9.txt
+¦           reference.txt
+¦           scores.txt
 ¦           
 +---user_data
         user_credentials.txt
