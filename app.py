@@ -4,7 +4,7 @@ import os
 
 #change below for offline vs server
 # STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
-#STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
+# STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
 STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 app = Flask(__name__, static_folder=STATIC_DIR)
