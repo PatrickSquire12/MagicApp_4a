@@ -1,7 +1,7 @@
 Deck 1,bears
 Deck 2,eels
-Deck 3,Deck 3
-Deck 4,Deck 4
+Deck 3,grumpies
+Deck 4,dwarfs
 Deck 5,Deck 5
 Deck 6,Deck 6
 Deck 7,Deck 7

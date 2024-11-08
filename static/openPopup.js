@@ -122,13 +122,16 @@ function refreshPercentages() {
         .then(data => {
             const tableBody = document.querySelector('.table-container tbody');
             tableBody.innerHTML = ''; // Clear existing rows
-            data.percentages.forEach(([deck, percentage]) => {
+            data.percentages.forEach(([deck, deck_name, percentage]) => {
                 const row = document.createElement('tr');
                 const deckCell = document.createElement('td');
+				const deckNameCell = document.createElement('td');
                 const percentageCell = document.createElement('td');
                 deckCell.textContent = deck;
+				deckNameCell.textContent = deck_name;
                 percentageCell.textContent = percentage;
                 row.appendChild(deckCell);
+				row.appendChild(deckNameCell);
                 row.appendChild(percentageCell);
                 tableBody.appendChild(row);
             });

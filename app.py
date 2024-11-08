@@ -3,20 +3,20 @@ from markupsafe import Markup
 import os
 
 #change below for offline vs server
-# STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
+STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
 # STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
-STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
+# STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
 # Change below file for offline vs serv5530er
-user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-# user_credentials_file = 'user_data/user_credentials.txt'
+# user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
+user_credentials_file = 'user_data/user_credentials.txt'
 
 # Define the base directory for uploads
-uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
-# uploads_dir = 'uploads'
+# uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
+uploads_dir = 'uploads'
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -229,10 +229,11 @@ def get_collection_data():
     
     return {'collectionContent': collection_content}
 
-    
+
 def calculate_percentages(user):
-    user_folder = os.path.join(uploads_dir, current_user)
+    user_folder = os.path.join(uploads_dir, user)
     collection_file = os.path.join(user_folder, 'collection.txt')
+    reference_file = os.path.join(user_folder, 'reference.txt')
     
     # Read the lines in collection.txt
     try:
@@ -241,8 +242,18 @@ def calculate_percentages(user):
     except FileNotFoundError:
         collection_lines = set()
     
+    # Read the reference.txt file and create a dictionary for deck names
+    deck_names = {}
+    try:
+        with open(reference_file, 'r') as f:
+            for line in f:
+                deck_number, deck_name = line.strip().split(',')
+                deck_names[deck_number] = deck_name
+    except FileNotFoundError:
+        pass
+    
     percentages = []
-    for i in range(1, 21):
+    for i in range(1, 22):
         deck_file = os.path.join(user_folder, f'deck{i}.txt')
         try:
             with open(deck_file, 'r') as f:
@@ -258,15 +269,16 @@ def calculate_percentages(user):
         else:
             percentage = 0
         
-        percentages.append((f'deck {i}', f'{percentage:.2f}%'))
+        deck_name = deck_names.get(f'Deck {i}', 'Unknown')
+        percentages.append((f'Deck {i}', deck_name, f'{percentage:.2f}%'))
     
     return percentages
 
-    
 @app.route('/get_percentages')
 def get_percentages():
     percentages = calculate_percentages(current_user)
     return {'percentages': percentages}
+
 
 
 @app.route('/logout')

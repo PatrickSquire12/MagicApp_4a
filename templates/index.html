@@ -38,13 +38,15 @@
 			<thead>
 				<tr>
 					<th>Deck</th>
+					<th>Deck Name</th>
 					<th>Percentage</th>
 				</tr>
 			</thead>
 			<tbody>
-				{% for deck, percentage in percentages %}
+				{% for deck, deck_name, percentage in percentages %}
 				<tr>
 					<td>{{ deck }}</td>
+					<td>{{ deck_name }}</td>
 					<td>{{ percentage }}</td>
 				</tr>
 				{% endfor %}

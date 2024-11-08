@@ -140,3 +140,31 @@ body {
     margin-left: 120px; /* Same left margin as button container */
     width: 200px; /* Same width as button container */
 }
+
+
+th, td {
+  border: none
+  text-align: left;
+  padding: 5px;
+}
+
+table {
+  width: 200%;
+  background-color: white;
+  border-collapse: collapse;
+}
+
+th {
+  background-color: rgb(255, 87, 87);
+  color: white;
+  text-align: left
+}
+
+td {
+	background-color: white;
+}
+
+tr:nth-child(even) td {
+  background-color: #f2f2f2; /* Light grey background for even rows */
+}
+
