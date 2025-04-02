@@ -221,6 +221,8 @@ def get_deck_data():
     
     return jsonify({'deckName': deck_name, 'deckContent': deck_content})
     
+    
+    
 @app.route('/get_collection_data')
 def get_collection_data():
     user_folder = os.path.join(uploads_dir, current_user)

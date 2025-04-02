@@ -12,7 +12,7 @@
         h3 {
             color: #333;
         }
-        textarea, button {
+        textarea, input, button {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
@@ -31,27 +31,44 @@
             color: white;
         }
 
-        /* New style to handle white space */
         textarea {
             white-space: pre-wrap; /* Preserve white space and line breaks */
         }
     </style>
 </head>
 <body>
-    <h3>Paste your text for Collection here:</h3>
+    <h3>Edit Deck:</h3>
     <form action="/update_collection" method="POST">
+        <!-- New input field for Deck Name -->
+        <label for="deckName">Deck Name:</label>
+        <input type="text" name="deckName" id="deckName" placeholder="Deck Name"><br>
+
+        <!-- Textarea for Deck Content -->
+        <label for="textContent">Deck Content:</label>
         <textarea name="textContent" id="textContent" rows="10" cols="60"></textarea><br>
         <button type="submit">Submit</button>
     </form>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch(`/get_deck_data`)
-                .then(response => response.json())
-                .then(data => {
-                    const content = data.deckContent;
-                    document.getElementById('textContent').value = content || '';
-                });
+            // Extract 'index' from the query string in the URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const index = urlParams.get('index');
+
+            if (index) {
+                // Make a GET request to the Flask route with the 'index' parameter
+                fetch(`/get_deck_data?index=${index}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Debugging purposes
+                        // Populate the deck name and content
+                        document.getElementById('deckName').value = data.deckName || 'No Name Found';
+                        document.getElementById('textContent').value = data.deckContent || 'No Content Found';
+                    })
+                    .catch(error => console.error('Error fetching data:', error));
+            } else {
+                console.error('Index not found in URL');
+            }
         });
     </script>
 </body>

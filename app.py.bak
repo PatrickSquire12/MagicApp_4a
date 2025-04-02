@@ -199,27 +199,37 @@ def get_deck_name():
     return jsonify({'deckName': deck_name})
 
 
-@app.route('/get_deck_data', methods=['GET'])
-def get_deck_data():
-    index = request.args.get('index')
-    print(f'Received index: {index}')  # Debugging line
-    user_dir = os.path.join(uploads_dir, current_user)
+
     reference_file_path = os.path.join(user_dir, 'reference.txt')
     deck_file_path = os.path.join(user_dir, f'deck{index}.txt')
-    
+
     deck_name = ''
-    with open(reference_file_path, 'r') as file:
-        for line in file:
-            if line.startswith(f'Deck {index},'):
-                deck_name = line.strip().split(',')[1]
-                break
-    
+    try:
+        # Read the deck name from reference.txt
+        with open(reference_file_path, 'r') as file:
+            lines = file.readlines()
+            if 0 < int(index) <= len(lines):  # Ensure index is within range
+                line = lines[int(index) - 1].strip()
+                deck_name = line.split(',')[1]
+            else:
+                deck_name = 'Index out of range'
+    except FileNotFoundError:
+        return jsonify({'error': 'Reference file not found'}), 404
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
     deck_content = ''
     if os.path.exists(deck_file_path):
-        with open(deck_file_path, 'r') as file:
-            deck_content = file.read()
-    
+        try:
+            # Read the deck content from the corresponding file
+            with open(deck_file_path, 'r') as file:
+                deck_content = file.read()
+        except Exception as e:
+            return jsonify({'error': str(e)}), 500
+
     return jsonify({'deckName': deck_name, 'deckContent': deck_content})
+    
+    
     
 @app.route('/get_collection_data')
 def get_collection_data():
@@ -318,7 +328,6 @@ def update_collection():
 
     with open(file_path, 'w') as file:
         file.write(text_content)
-    print(f"Updated {file_path} with provided text.")  # Debugging line
 
     return redirect(url_for('index'))
 
