@@ -6,16 +6,16 @@ import os
 ##############################################################################################################
 #change below variables for offline vs server
 # STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
-STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
-# STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
+# STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
+STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 
 # Change below file for offline vs server
-# user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt' #python server
-user_credentials_file = 'user_data/user_credentials.txt' #home or work
+user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt' #python server
+# user_credentials_file = 'user_data/user_credentials.txt' #home or work
 
 # Define the base directory for uploads
-# uploads_dir = '/home/PDogg95/MagicApp_4a/uploads' #python server
-uploads_dir = 'uploads'    #home or work
+uploads_dir = '/home/PDogg95/MagicApp_4a/uploads' #python server
+# uploads_dir = 'uploads'    #home or work
 
 ################################################################################################################
 app = Flask(__name__, static_folder=STATIC_DIR)

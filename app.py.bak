@@ -217,7 +217,7 @@ def get_deck_data():
     deck_content = ''
     if os.path.exists(deck_file_path):
         with open(deck_file_path, 'r') as file:
-            deck_content = file.read()
+            raw_content = file.read()
             # Normalize newlines without stripping any whitespace
             deck_content = raw_content.replace('\n\n', '\n')
             
