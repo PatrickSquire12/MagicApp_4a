@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paste Text</title>
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: rgb(145, 139, 238);
+            padding: 20px;
+        }
+        h3 {
+            color: #333;
+        }
+        textarea, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: white;
+            color: rgb(255, 87, 87);
+            border: 2px solid rgb(255, 87, 87);
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(255, 87, 87);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h3 id="message"></h3>
+    <input type="text" id="deckName" placeholder="Enter Deck Name"><br>
+    <textarea id="textContent" rows="10" cols="60"></textarea><br>
+    <button onclick="submitTextHandler()">Submit</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const params = new URLSearchParams(window.location.search);
+            const index = params.get('index');
+            const message = `Paste your text for Deck ${index} here:`;
+            document.getElementById('message').textContent = message;
+
+            fetch(`/get_deck_data?index=${index}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('deckName').value = data.deckName || '';
+                    document.getElementById('textContent').value = data.deckContent || '';
+                });
+        });
+
+        function submitTextHandler() {
+            const params = new URLSearchParams(window.location.search);
+            const fileType = 'Deck';
+            const index = params.get('index');
+            const textContent = document.getElementById('textContent').value;
+            const deckName = document.getElementById('deckName').value;
+
+            // Call the submitText function from submitText.js
+            submitText(fileType, index, textContent, deckName);
+        }
+    </script>
+    <script src="/static/submitText.js"></script>
+</body>
+</html>

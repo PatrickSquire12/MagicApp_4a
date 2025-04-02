@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Paste Text</title>
+    <style>
+        body {
+            font-family: 'Roboto Condensed', sans-serif;
+            background-color: rgb(145, 139, 238);
+            padding: 20px;
+        }
+        h3 {
+            color: #333;
+        }
+        textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: white;
+            color: rgb(255, 87, 87);
+            border: 2px solid rgb(255, 87, 87);
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: rgb(255, 87, 87);
+            color: white;
+        }
+
+        /* New style to handle white space */
+        textarea {
+            white-space: pre-wrap; /* Preserve white space and line breaks */
+        }
+    </style>
+</head>
+<body>
+    <h3>Paste your text for Collection here:</h3>
+    <form action="/update_collection" method="POST">
+        <textarea name="textContent" id="textContent" rows="10" cols="60"></textarea><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch(`/get_collection_data`)
+                .then(response => response.json())
+                .then(data => {
+                    const content = data.collectionContent;
+                    document.getElementById('textContent').value = content || '';
+                });
+        });
+    </script>
+</body>
+</html>

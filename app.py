@@ -2,7 +2,9 @@ from flask import Flask, request, render_template, redirect, url_for, flash, jso
 from markupsafe import Markup
 import os
 
-#change below for offline vs server
+
+##############################################################################################################
+#change below variables for offline vs server
 # STATIC_DIR = r'C:\Users\squ111732\Documents\python_workspace\home projects\MagicApp_4a\static' #work pc
 # STATIC_DIR = r'C:\Users\patri\Documents\Computer\Python\MagicApp_4a\static' #home pc
 STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
@@ -10,13 +12,16 @@ STATIC_DIR = '/home/PDogg95/MagicApp_4a/static' #python server
 app = Flask(__name__, static_folder=STATIC_DIR)
 app.secret_key = 'your_secret_key'  # Replace with a secure key
 
-# Change below file for offline vs serv5530er
-user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt'
-# user_credentials_file = 'user_data/user_credentials.txt'
+# Change below file for offline vs server
+user_credentials_file = '/home/PDogg95/MagicApp_4a/user_data/user_credentials.txt' #python server
+# user_credentials_file = 'user_data/user_credentials.txt' #home or work
 
 # Define the base directory for uploads
-uploads_dir = '/home/PDogg95/MagicApp_4a/uploads'
-# uploads_dir = 'uploads'
+uploads_dir = '/home/PDogg95/MagicApp_4a/uploads' #python server
+# uploads_dir = 'uploads'    #home or work
+
+################################################################################################################
+
 
 # Function to check credentials
 def check_credentials(username, password):
@@ -225,9 +230,16 @@ def get_collection_data():
     collection_content = ''
     if os.path.exists(collection_file):
         with open(collection_file, 'r') as file:
-            collection_content = file.read()
+            raw_content = file.read()
+            print("Raw content from file:")
+            print(repr(raw_content))  # Use repr to show hidden characters like \n and \r
+            
+            # Normalize newlines without stripping any whitespace
+            collection_content = raw_content.replace('\n\n', '\n')
+            print("Normalized content:")
+            print(repr(collection_content))
     
-    return {'collectionContent': collection_content}
+    return jsonify({'collectionContent': collection_content})
 
 
 def calculate_percentages(user):
@@ -286,7 +298,30 @@ def logout():
     global current_user
     current_user = None
     return redirect(url_for('home'))
+    
+    
+@app.route('/deck.html')
+def deck_page():
+    return render_template('deck.html')
 
+
+@app.route('/collection.html')
+def collection_page():
+    print(f"Current user before rendering collection.html: {current_user}")  # Debugging line
+    return render_template('collection.html')
+
+
+@app.route('/update_collection', methods=['POST'])
+def update_collection():
+    text_content = request.form['textContent']
+    user_dir = os.path.join(uploads_dir, current_user)
+    file_path = os.path.join(user_dir, 'collection.txt')
+
+    with open(file_path, 'w') as file:
+        file.write(text_content)
+    print(f"Updated {file_path} with provided text.")  # Debugging line
+
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
