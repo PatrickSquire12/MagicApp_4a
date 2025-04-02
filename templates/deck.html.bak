@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Paste Text</title>
+    <title>Edit Deck</title>
     <style>
         body {
             font-family: 'Roboto Condensed', sans-serif;
@@ -30,40 +30,43 @@
             background-color: rgb(255, 87, 87);
             color: white;
         }
-
         textarea {
-            white-space: pre-wrap; /* Preserve white space and line breaks */
+            white-space: pre-wrap;
         }
     </style>
 </head>
 <body>
     <h3>Edit Deck:</h3>
-    <form action="/update_collection" method="POST">
-        <!-- New input field for Deck Name -->
+    <form id="deckForm" method="POST">
+        <!-- Deck Name Textbox -->
         <label for="deckName">Deck Name:</label>
         <input type="text" name="deckName" id="deckName" placeholder="Deck Name"><br>
 
-        <!-- Textarea for Deck Content -->
+        <!-- Deck Content Textarea -->
         <label for="textContent">Deck Content:</label>
-        <textarea name="textContent" id="textContent" rows="10" cols="60"></textarea><br>
-        <button type="submit">Submit</button>
+        <textarea name="textContent" id="textContent" rows="10" cols="60" placeholder="Paste Decklist Here"></textarea><br>
+
+        <button type="submit">Save Changes</button>
     </form>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Extract 'index' from the query string in the URL
             const urlParams = new URLSearchParams(window.location.search);
             const index = urlParams.get('index');
 
             if (index) {
-                // Make a GET request to the Flask route with the 'index' parameter
+                // Dynamically set the form action to include the index parameter
+                const form = document.getElementById('deckForm');
+                form.action = `/update_deck?index=${index}`;
+
+                // Fetch deck data from Flask
                 fetch(`/get_deck_data?index=${index}`)
                     .then(response => response.json())
                     .then(data => {
                         console.log(data); // Debugging purposes
-                        // Populate the deck name and content
-                        document.getElementById('deckName').value = data.deckName || 'No Name Found';
-                        document.getElementById('textContent').value = data.deckContent || 'No Content Found';
+                        // Populate the text boxes with deck name and content
+                        document.getElementById('deckName').value = data.deckName || '';
+                        document.getElementById('textContent').value = data.deckContent || '';
                     })
                     .catch(error => console.error('Error fetching data:', error));
             } else {

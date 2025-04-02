@@ -39,7 +39,7 @@
 				<tr>
 					<th>Deck</th>
 					<th>Deck Name</th>
-					<th>Percentage Owned</th>
+					<th>Percentage</th>
 				</tr>
 			</thead>
 			<tbody>

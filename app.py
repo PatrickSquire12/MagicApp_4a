@@ -217,8 +217,10 @@ def get_deck_data():
     deck_content = ''
     if os.path.exists(deck_file_path):
         with open(deck_file_path, 'r') as file:
-            deck_content = file.read()
-    
+            raw_content = file.read()
+            # Normalize newlines without stripping any whitespace
+            deck_content = raw_content.replace('\n\n', '\n')
+            
     return jsonify({'deckName': deck_name, 'deckContent': deck_content})
     
     
@@ -322,6 +324,37 @@ def update_collection():
         file.write(text_content)
 
     return redirect(url_for('index'))
+    
+    
+@app.route('/update_deck', methods=['POST'])
+def update_deck():
+    # Get updated deck name and content from the form
+    deck_name = request.form['deckName']
+    deck_content = request.form['textContent']
+    index = request.args.get('index')  # Retrieve index from query string
+
+    user_dir = os.path.join(uploads_dir, current_user)
+    reference_file_path = os.path.join(user_dir, 'reference.txt')
+    deck_file_path = os.path.join(user_dir, f'deck{index}.txt')
+
+    # Update deck content in deck{index}.txt
+    with open(deck_file_path, 'w') as file:
+        file.write(deck_content)
+
+    # Update deck name in reference.txt
+    with open(reference_file_path, 'r') as file:
+        lines = file.readlines()
+
+    # Ensure the index is valid and update the correct line
+    if index and 0 < int(index) <= len(lines):
+        lines[int(index) - 1] = f'Deck {index},{deck_name}\n'  # Update the line format
+
+    with open(reference_file_path, 'w') as file:
+        file.writelines(lines)
+
+    return redirect(url_for('index'))
+
+
 
 
 

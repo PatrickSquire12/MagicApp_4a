@@ -38,7 +38,7 @@
     </style>
 </head>
 <body>
-    <h3>Paste your Deck Collection here:</h3>
+    <h3>Paste your text for Collection here:</h3>
     <form action="/update_collection" method="POST">
         <textarea name="textContent" id="textContent" rows="10" cols="60"></textarea><br>
         <button type="submit">Submit</button>
