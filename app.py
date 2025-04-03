@@ -253,7 +253,7 @@ def calculate_percentages(user):
     # Read the lines in collection.txt
     try:
         with open(collection_file, 'r') as f:
-            collection_lines = set(line.strip() for line in f.readlines())
+            collection_lines = set(line.strip() for line in f.readlines() if line.strip())
     except FileNotFoundError:
         collection_lines = set()
     
@@ -272,7 +272,7 @@ def calculate_percentages(user):
         deck_file = os.path.join(user_folder, f'deck{i}.txt')
         try:
             with open(deck_file, 'r') as f:
-                deck_lines = [line.strip() for line in f.readlines()]
+                deck_lines = [line.strip() for line in f.readlines() if line.strip()]
             matching_lines = sum(1 for line in deck_lines if line in collection_lines)
             deck_count = len(deck_lines)
         except FileNotFoundError:
@@ -286,6 +286,12 @@ def calculate_percentages(user):
         
         deck_name = deck_names.get(f'Deck {i}', 'Unknown')
         percentages.append((f'Deck {i}', deck_name, f'{percentage:.2f}%'))
+        
+        # Debugging output
+        # print(f'Deck {i}:')
+        # print(f'Deck lines: {deck_lines}')
+        # print(f'Matching lines: {matching_lines}')
+        # print(f'Deck count: {deck_count}')
     
     return percentages
 
