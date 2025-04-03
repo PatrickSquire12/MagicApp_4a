@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto Condensed', sans-serif; /* Apply the font */
-    background-color: rgb(145, 139, 238); /* Set the background color */
+    background-color: #918bee; /* Set the background color */
     /* display: flex; */
     /* justify-content: center; */
     /* align-items: center; */
@@ -57,25 +57,25 @@ body {
 }
 
 .custom-input {
-    border: 2px solid rgb(145, 139, 238);
+    border: 2px solid #918bee;
     outline: none; /* Remove the default focus outline */
 }
 
 .custom-input:focus {
-    border-color: rgb(145, 139, 238); /* Maintain the border color on focus */
+    border-color: #918bee; /* Maintain the border color on focus */
 }
 
 .custom-button {
-    background-color: rgb(255, 87, 87) !important;
+    background-color: #ffcba4 !important;
     color: white;
 }
 
 .custom-hyperlink {
-    color: rgb(255, 87, 87) !important;
+    color: #ffcba4 !important;
 }
 
 .custom-label1 {
-    color: rgb(145, 139, 238);
+    color: #918bee;
 }
 
 .logo {
@@ -83,7 +83,7 @@ body {
     top: 0;
     left: 0;
     padding: 10px; /* Adjust padding as needed */
-	color: white; 
+    color: white; 
 }
 
 .logo img {
@@ -91,44 +91,39 @@ body {
     height: auto;
 }
 
-
-
 .button-container {
     display: grid;
     grid-template-columns: repeat(11, 1fr);
     gap: 5px;
     /* margin-left: 120px; */
     align-items: start; /* Align items to the start to prevent stretching */
-	height: 20px;
-	width: 200px; 
-	margin-top: 20px; /* Adjust this value as needed */
+    height: 20px;
+    width: 200px; 
+    margin-top: 20px; /* Adjust this value as needed */
     margin-left: 120px; /* Add enough space to clear the logo */
 }
-
 
 .button-container button {
     width: 80px;
     padding: 10px;
     box-sizing: border-box;
-    background-color: white; /* Set background to white */
-    color: rgb(255, 87, 87); /* Set text color to orange */
-    border: 2px solid rgb(255, 87, 87); /* Add a border with the same orange color */
+    background-color: white;
+    color: #918bee; /* purple */ 
+    border: 4px solid #ffcba4; /* peach */  
     border-radius: 5px; /* Optional: Add border radius for rounded corners */
     cursor: pointer;
 }
 
 .button-container button:hover {
-    background-color: rgb(255, 87, 87); /* Change background color on hover */
-    color: white; /* Change text color to white on hover */
+    background-color: #ffcba4; /* Change background color on hover */
 }
-
 
 .logout-button {
     position: absolute;
     top: 10px;
     right: 10px;
-    background-color: #ff4d4d;
-    color: white;
+    background-color:  #ffcba4; /* peach */ 
+    color: #918bee; /* purple */ 
     border: none;
     padding: 10px 20px;
     cursor: pointer;
@@ -141,30 +136,29 @@ body {
     width: 200px; /* Same width as button container */
 }
 
-
 th, td {
-  border: none
-  text-align: left;
-  padding: 5px;
+    border: none;
+    text-align: left;
+    padding: 5px;
 }
 
 table {
-  width: 200%;
-  background-color: white;
-  border-collapse: collapse;
+    width: 200%;
+    background-color: white;
+    border-collapse: collapse;
 }
 
 th {
-  background-color: rgb(255, 87, 87);
-  color: white;
-  text-align: left
+    background-color: #f2f2f2;
+    color: #918bee; /* purple */ 
+    text-align: left;
 }
 
 td {
-	background-color: white;
+    background-color: white;
+	color: #696969;
 }
 
 tr:nth-child(even) td {
-  background-color: #f2f2f2; /* Light grey background for even rows */
+    background-color: #f2f2f2; /* Light grey background for even rows */
 }
-
