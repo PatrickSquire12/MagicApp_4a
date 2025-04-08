@@ -24,7 +24,7 @@
         <label class="custom-label1">Click below for Web App</label>
         <p><a href="/login" class="custom-hyperlink">Web App Link</a></p>
         <label class="custom-label1">Click below for Spreadsheet template</label>
-        <p><a href="/register" class="custom-hyperlink">Spreadsheet Template</a></p>
+        <p><a href="{{ url_for('static', filename='CardMirror_DeckTracker.xlsx') }}" class="custom-hyperlink" download>Spreadsheet Template</a></p>
     </div>
 </body>
 </html>
