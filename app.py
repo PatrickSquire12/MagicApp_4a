@@ -88,36 +88,24 @@ def create_user_files(username):
 
 
 @app.route('/')
-def home():
-    return render_template('login.html')
+def welcome():
+    return render_template('welcome.html')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    username = request.form['username']
-    password = request.form['password']
-    if check_credentials(username, password):
-        global current_user
-        current_user = username
-        return redirect(url_for('index'))  # Redirect to the index page on successful login
-    else:
-        flash(Markup("<span style='color: red;'>Incorrect Username or Password</span>"))
-        return redirect(url_for('home'))
-
-
-@app.route('/register', methods=['GET', 'POST'])
-def register():
     if request.method == 'POST':
+        # Handle POST request: process login form submission
         username = request.form['username']
         password = request.form['password']
-        if username_exists(username):
-            flash(Markup("<span style='color: red;'>Username already in use</span>"))
-            return redirect(url_for('register'))
+        if check_credentials(username, password):
+            global current_user
+            current_user = username
+            return redirect(url_for('index'))  # Redirect to the index page on successful login
         else:
-            register_user(username, password)
-            create_user_files(username)  # Create user files upon registration
-            flash(Markup("<span style='color: green;'>Registration successful</span>"))
-            return redirect(url_for('home'))
-    return render_template('register.html')
+            flash(Markup("<span style='color: red;'>Incorrect Username or Password</span>"))
+            return redirect(url_for('login'))  # Redirect to the login page on failure
+    # Handle GET request: render the login page
+    return render_template('login.html')
 
 @app.route('/forgot_password', methods=['GET', 'POST'])
 def forgot_password():
@@ -127,7 +115,7 @@ def forgot_password():
         if username_exists(username):
             reset_password(username, new_password)
             flash(Markup("<span style='color: green;'>Password reset successfully</span>"))
-            return redirect(url_for('home'))
+            return redirect(url_for('login'))
         else:
             flash(Markup("<span style='color: red;'>Username not found</span>"))
             return redirect(url_for('forgot_password'))
@@ -138,7 +126,7 @@ def forgot_password():
 def index():
     global current_user  # Use the global variable for the current user
     if 'current_user' not in globals() or current_user is None:
-        return redirect(url_for('home'))
+        return redirect(url_for('login'))
     
     percentages = calculate_percentages(current_user)
     return render_template('index.html', username=current_user,percentages=percentages)
@@ -306,7 +294,7 @@ def get_percentages():
 def logout():
     global current_user
     current_user = None
-    return redirect(url_for('home'))
+    return redirect(url_for('login'))
     
     
 @app.route('/deck.html')

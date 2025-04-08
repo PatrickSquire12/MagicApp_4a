@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i">
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+</head>
+<style>
+    body {
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+</style>
+<body>
+    <div class="logo">
+        <img src="static/logo2.svg" alt="Logo">
+    </div>
+	<div>
+		<h1 style="color: #ffcba4;" >Welcome to Card Mirror</h1>
+	<div>
+    <div class="form-container">
+        <label class="custom-label1">Click below for Web App</label>
+        <p><a href="/login" class="custom-hyperlink">Web App Link</a></p>
+        <label class="custom-label1">Click below for Spreadsheet template</label>
+        <p><a href="/register" class="custom-hyperlink">Spreadsheet Template</a></p>
+    </div>
+</body>
+</html>
